@@ -96,7 +96,51 @@ public class WebLibraryResourceGET {
 		
 		return new Catalog(books);
 	}
+///////////////project
+	@POST
+	@Path("/test")
+	@Produces(MediaType.TEXT_HTML)
+	public String test(
+			@FormParam("isbn") String isbn,
+			@FormParam("test") String test,
+			@FormParam("test1") String test1) 
+	{
+	
+		String result;
+		result = test;
+		//if test fixed
+		if(!test1.isEmpty())
+		{
+			String[] values = test1.split(" ");
+	        int length = values.length;
+	        String[] escapseValues = new String[length];
+	        for(int i = 0;i<length;i++){
+	            
+escapseValues[i] = Jsoup.clean(values[i], Whitelist.relaxed()).trim();
 
+	            if(!StringUtils.equals(escapseValues[i],values[i])){
+System.out.println("Input："+values[i]+"\t"+"Output："+escapseValues[i]);
+	            }
+	        }
+
+	        StringBuilder stringBuilder = new StringBuilder();
+
+	        for (String str : escapseValues) {
+	            stringBuilder.append(str);
+	        }
+	        
+	        result = stringBuilder.toString();
+		}
+	
+		return result;
+	}
+////////////////////////////////////////////////
+
+
+
+
+
+	
 	/**
 	 * All Issued Books to one User REST JSON
 	 * Method shows all Issued Books to ONE user by it's userID
